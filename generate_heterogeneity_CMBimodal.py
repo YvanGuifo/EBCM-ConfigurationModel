@@ -8,7 +8,6 @@ import random
 
 colors = ['#5AB3E6','#FF2000','#009A80','#E69A00', '#CD9AB3', '#0073B3','#F0E442']
 rho = 0.025
-rho1 = 0.001
 Nbig=500000
 N = 500000
 meank = 5
@@ -38,9 +37,6 @@ def get_G(N, Pk):
     return G
 
 def process_degree_distribution(Gbig, color, Psi, DPsi, symbol, label):
-    #G = get_G(N, Pk)
-    t, S, I, R = EoN.fast_SIR(Gbig, tau, gamma, rho=rho)
-    plt.plot(t, I*1./Gbig.order(), color = color)
     
     N= Gbig.order()#N is arbitrary, but included because our implementation of EBCM assumes N is given.
     t, S, I, R = EoN.EBCM(N, lambda x: (1-rho)*Psi(x), lambda x: (1-rho)*DPsi(x), tau, gamma, 1-rho)
