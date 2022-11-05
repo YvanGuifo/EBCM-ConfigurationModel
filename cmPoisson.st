@@ -7,7 +7,7 @@ sirConcern
    to: {(#status -> #I)}
    probability: 'lambda'.
 sirConcern changeParameter: #lambda 
-   value: 'taugen*I*alphagen'.
+   value: 'taugen*itgen*alphagen'.
 sirConcern
    addTransitionFrom: {(#status -> #I)} 
    to: {(#status -> #R)}
@@ -15,7 +15,9 @@ sirConcern
         
 cmPoissonConcern := KEModelPart new.
 cmPoissonConcern addParameter:  #alphagen
-   value: 'deg'.  
+   value: 'meanDegree'.  
+cmPoissonConcern addParameter:  #itgen
+   value: 'I'.
 cmPoissonConcern addParameter:  #taugen
    value: '((beta)/(beta+gamma))'.  
 
@@ -25,7 +27,7 @@ model atCompartment: {(#status -> #S)} put: 0.975.
 model atCompartment: {(#status -> #I)} put: 0.025.
 model atParameter: #beta assignValue: 0.6.
 model atParameter: #gamma assignValue: 1.
-model atParameter: #deg assignValue: 5.
+model atParameter: #meanDegree assignValue: 5.
 
 simulator := KESimulator
    new: #RungeKutta
