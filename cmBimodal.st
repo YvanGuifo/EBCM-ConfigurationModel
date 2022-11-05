@@ -35,12 +35,6 @@ simulator := KESimulator
    from: 0.0
    to: 15
    step: 0.1.
-
-simulator := KESimulator
-   new: #RungeKutta
-   from: 0.0
-   to: 15
-   step: 0.1.
 simulator executeOn: model.
 
 chart := KEChart new.
