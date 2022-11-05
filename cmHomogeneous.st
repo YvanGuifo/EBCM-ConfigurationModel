@@ -7,7 +7,7 @@ sirConcern
    to: {(#status -> #I)}
    probability: 'lambda'.
 sirConcern changeParameter: #lambda 
-   value: 'taugen*I*alphagen'.
+   value: 'taugen*itgen*alphagen'.
 sirConcern
    addTransitionFrom: {(#status -> #I)} 
    to: {(#status -> #R)}
@@ -17,6 +17,8 @@ cmHomogeneousConcern := KEModelPart new.
 "heterogeneity = <k^2-k>/<k>"
 cmHomogeneousConcern addParameter:  #alphagen
    value: 'heterogeneity'.   
+cmHomogeneousConcern addParameter:  #itgen
+   value: 'I'.
 cmHomogeneousConcern addParameter:  #taugen
    value: '(beta/(beta+gamma))'.
 model := sirConcern + cmHomogeneousConcern.
@@ -26,7 +28,6 @@ model atCompartment: {(#status -> #I)} put: 0.025.
 model atParameter: #beta assignValue: 0.6.
 model atParameter: #heterogeneity assignValue: 4.
 model atParameter: #gamma assignValue: 1.
-model atParameter: #deg assignValue: 5.
 
 simulator := KESimulator
    new: #RungeKutta
