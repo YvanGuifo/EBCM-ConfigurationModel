@@ -7,7 +7,7 @@ sirConcern
    to: {(#status -> #I)}
    probability: 'lambda'.
 sirConcern changeParameter: #lambda 
-   value: 'taugen*I*alphagen'.
+   value: 'taugen*itgen*alphagen'.
 sirConcern
    addTransitionFrom: {(#status -> #I)} 
    to: {(#status -> #R)}
@@ -16,6 +16,8 @@ sirConcern
 cmBimodalConcern := KEModelPart new.
 cmBimodalConcern addParameter:  #alphagen
    value: 'heterogeneity'.  
+cmBimodalConcern addParameter:  #itgen
+   value: 'I'. 
 cmBimodalConcern addParameter:  #taugen
    value: '((beta)/(beta+gamma))'.  
 
