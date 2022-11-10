@@ -14,9 +14,8 @@ sirConcern
    probability: 'gamma'.
         
 cmHomogeneousConcern := KEModelPart new.
-"heterogeneity = <k^2-k>/<k>"
 cmHomogeneousConcern addParameter:  #alphagen
-   value: 'heterogeneity'.   
+   value: '4'.   
 cmHomogeneousConcern addParameter:  #itgen
    value: 'I'.
 cmHomogeneousConcern addParameter:  #taugen
@@ -26,7 +25,6 @@ model := sirConcern + cmHomogeneousConcern.
 model atCompartment: {(#status -> #S)} put: 0.975.
 model atCompartment: {(#status -> #I)} put: 0.025.
 model atParameter: #beta assignValue: 0.6.
-model atParameter: #heterogeneity assignValue: 4.
 model atParameter: #gamma assignValue: 1.
 
 simulator := KESimulator
