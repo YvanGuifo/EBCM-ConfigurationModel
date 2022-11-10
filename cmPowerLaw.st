@@ -14,9 +14,8 @@ sirConcern
    probability: 'gamma'.
         
 cmPowerLawConcern := KEModelPart new.
-"heterogeneity = <k^2-k>/<k> = Ψ''(1)/Ψ'(1)"
 cmPowerLawConcern addParameter:  #alphagen
-   value: 'heterogeneity'.  
+   value: '18.653008'.  
 cmPowerLawConcern addParameter:  #itgen
    value: 'I'.
 cmPowerLawConcern addParameter:  #taugen
@@ -26,7 +25,6 @@ model := sirConcern + cmPowerLawConcern.
 model atCompartment: {(#status -> #S)} put: 0.975.
 model atCompartment: {(#status -> #I)} put: 0.025.
 model atParameter: #beta assignValue: 0.6.
-model atParameter: #heterogeneity assignValue: 18.653008.
 model atParameter: #gamma assignValue: 1.
 
 simulator := KESimulator
