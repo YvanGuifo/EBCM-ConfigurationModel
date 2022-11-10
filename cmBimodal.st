@@ -15,7 +15,7 @@ sirConcern
         
 cmBimodalConcern := KEModelPart new.
 cmBimodalConcern addParameter:  #alphagen
-   value: 'heterogeneity'.  
+   value: '5.8080352'.  
 cmBimodalConcern addParameter:  #itgen
    value: 'I'. 
 cmBimodalConcern addParameter:  #taugen
@@ -28,7 +28,7 @@ model atCompartment: {(#status -> #I)} put: 0.025.
 model atParameter: #beta assignValue: 0.6.
 model atParameter: #gamma assignValue: 1.
 model atParameter: #deg assignValue: 5.
-model atParameter: #heterogeneity assignValue: 5.8080352.
+
 
 simulator := KESimulator
    new: #RungeKutta
