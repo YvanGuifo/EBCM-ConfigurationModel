@@ -21,10 +21,21 @@ def PsiHomogeneous(x):
 def DPsiHomogeneous(x):
     return 5*x**4
   
-def process_degree_distribution(Gbig, color, Psi, DPsi, symbol, label):   
-    N= Gbig.order()#N is arbitrary, but included because our implementation of EBCM assumes N is given.
-    t, S, I, R = EoN.EBCM(N, lambda x: (1-rho)*Psi(x), lambda x: (1-rho)*DPsi(x), tau, gamma, 1-rho)
-    plt.plot(t, I/N, symbol, color = color, label=label)
+def get_G(N, Pk):
+    while True:
+        ks = []
+        for ctr in range(N):
+            r = random.random()
+            for k in Pk:
+                if r<Pk[k]:
+                    break
+                else:
+                    r-= Pk[k]
+            ks.append(k)
+        if sum(ks)%2==0:
+            break
+    G = nx.configuration_model(ks)
+    return G
     
 #Homogeneous
 Gbig = get_G(Nbig, {5:1.})
