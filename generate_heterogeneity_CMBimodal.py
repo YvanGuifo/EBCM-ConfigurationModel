@@ -36,12 +36,6 @@ def get_G(N, Pk):
     G = nx.configuration_model(ks)
     return G
 
-def process_degree_distribution(Gbig, color, Psi, DPsi, symbol, label):
-    
-    N= Gbig.order()#N is arbitrary, but included because our implementation of EBCM assumes N is given.
-    t, S, I, R = EoN.EBCM(N, lambda x: (1-rho)*Psi(x), lambda x: (1-rho)*DPsi(x), tau, gamma, 1-rho)
-    plt.plot(t, I/N, symbol, color = color, label=label)
-    
 #Bimodal
 Gbig = get_G(Nbig, bimodalPk)
 actual_degrees = [d for v, d in Gbig.degree()]
