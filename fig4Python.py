@@ -5,8 +5,14 @@ import matplotlib.pyplot as plt
 import scipy
 import numpy as np
 import random
+import matplotlib.pyplot as plt
+import csv
+import numpy as np
+import pandas as pd
 
-colors = ['#5AB3E6','#FF2000','#009A80','#E69A00', '#CD9AB3', '#0073B3','#F0E442']
+plt.figure(figsize=(8,7))
+
+colors = ['#5AB3E6','#FF2000','#009A80','#E69A00', '#CD9AB3', '#0073B3','#F0E442', '#7f00ff', '#0000ff']
 rho = 0.025
 Nbig=500000
 Nsmall = 5000
@@ -75,33 +81,42 @@ def get_G(N, Pk):
     G = nx.configuration_model(ks)
     return G
 
-def process_degree_distribution(Gbig, color, Psi, DPsi, symbol, label):
+def process_degree_distribution(Gbig, color, Psi, DPsi,  label):
 
     N= Gbig.order()#N is arbitrary, but included because our implementation of EBCM assumes N is given.
     t, S, I, R = EoN.EBCM(N, lambda x: (1-rho)*Psi(x), lambda x: (1-rho)*DPsi(x), tau, gamma, 1-rho)
-    plt.plot(t, I/N, symbol, color = color, label=label)
+    plt.plot(t, I/N, color = color, label=label)
     
 #Erdos Renyi
 Gbig = nx.fast_gnp_random_graph(Nbig, 5./(Nbig-1))
-process_degree_distribution(Gbig, colors[1], PsiPoisson, DPsiPoisson, '^', r'Poisson')
+process_degree_distribution(Gbig, colors[1], PsiPoisson, DPsiPoisson, r'Poisson')
 
 #Bimodal
 Gbig = get_G(Nbig, bimodalPk)
-process_degree_distribution(Gbig, colors[2], PsiBimodal, DPsiBimodal, 'o', r'Bimodal')
+process_degree_distribution(Gbig, colors[2], PsiBimodal, DPsiBimodal, r'Bimodal')
 
 
 #Powerlaw
 Gbig = get_G(Nbig, PlPk)
-process_degree_distribution(Gbig, colors[3], PsiPowLaw, DPsiPowLaw, 'd', r'Truncated Power Law')
+process_degree_distribution(Gbig, colors[3], PsiPowLaw, DPsiPowLaw, r'Truncated Power Law')
 
 #Homogeneous
 Gbig = get_G(Nbig, {5:1.})
-process_degree_distribution(Gbig, colors[0], PsiHomogeneous, DPsiHomogeneous, 's', r'Homogeneous')
+process_degree_distribution(Gbig, colors[8], PsiHomogeneous, DPsiHomogeneous, r'Homogeneous')
 
+step = 0.1     #step size
+step_max_plot = 150
 
+xx = np.arange(0, step_max_plot*step, step)
 
-plt.axis(xmin=0, ymin=0, xmax = 15, ymax = 0.35)
+df1 = pd.read_csv('/usr/admin/Desktop/Implementation/MassActionI.csv')
+df1 = df1.loc[:, '{#status->#I}']
+inc1 = df1[:step_max_plot]
+
+plt.plot(xx, inc1, label = 'Mass Action', color = 'black')
+
+plt.axis(xmin=0, ymin=0, xmax = 15, ymax = 0.6)
 plt.xlabel('$t$')
 plt.ylabel('infectious')
-plt.legend(loc = 'upper right', numpoints = 0.01)
+plt.legend()
 plt.show()
