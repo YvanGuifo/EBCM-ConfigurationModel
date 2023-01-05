@@ -109,7 +109,7 @@ step_max_plot = 150
 
 xx = np.arange(0, step_max_plot*step, step)
 
-df1 = pd.read_csv('/usr/admin/Desktop/Implementation/MassActionI.csv')
+df1 = pd.read_csv('/Users/admin/Desktop/Implementation/MassActionI.csv')
 df1 = df1.loc[:, '{#status->#I}']
 inc1 = df1[:step_max_plot]
 
